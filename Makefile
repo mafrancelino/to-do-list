@@ -26,5 +26,5 @@ clean:
 	rm -rf dist
 
 install:
-	docker compose exec app npm install
+	npm install
 
