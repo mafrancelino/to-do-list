@@ -36,3 +36,6 @@ make format    # Formata o código
 A documentação da API pode ser acessada via Swagger em:
 [http://localhost:3001/api](http://localhost:3001/api)
 
+
+![Screenshot](image.png)
+
