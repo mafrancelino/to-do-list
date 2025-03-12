@@ -4,7 +4,7 @@ import { CreateTodoDto } from './dto/create-todo.dto'
 import { UpdateTodoDto } from './dto/update-todo.dto'
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger'
 
-@ApiTags('To-Do List') 
+@ApiTags('To-Do List')
 @Controller('to-do-list')
 export class TodoController {
   constructor(private readonly todoService: TodoService) {}

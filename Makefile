@@ -7,12 +7,6 @@ stop:
 restart:
 	docker compose down && docker compose up --build
 
-migrate:
-	docker compose exec app npm run typeorm -- migration:run -d ./data-source.ts
-
-generate-migration:
-	docker compose exec app npm run typeorm migration:generate -- -n MigrationName
-
 teste:
 	docker compose exec app npm run test
 
