@@ -1,0 +1,49 @@
+version: '3.8'
+
+networks:
+  app_network:
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres-db
+    restart: always
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "12345"
+      POSTGRES_DB: "to-do-list"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app_network
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 5s
+      retries: 5
+      start_period: 5s
+
+  app:
+    build: .
+    container_name: nest-app
+    restart: always
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "3001:3000"
+    environment:
+      DATABASE_HOST: "postgres"
+      DATABASE_PORT: "5432"
+      DATABASE_USER: "postgres"
+      DATABASE_PASSWORD: "12345"
+      DATABASE_NAME: "to-do-list"
+    volumes:
+      - .:/usr/src/app
+    networks:
+      - app_network
+    command: npm run start:dev
+
+volumes:
+  postgres_data:
